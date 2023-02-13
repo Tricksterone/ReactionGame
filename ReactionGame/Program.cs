@@ -2,14 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace ReactionGame
 {
     class Program
     {
-        static List<Highscore> highscores = new List<Highscore>();
+        public static List<Highscore> highscores = new List<Highscore>();
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Random random = new Random();
 
@@ -17,8 +24,10 @@ namespace ReactionGame
             {
                 Console.Clear();
                 Stopwatch stopwatch = new Stopwatch();
+               
 
                 Console.WriteLine("Tryck valfri tangent för att starta spelet!");
+                await GetTop10();
                 Console.ReadKey(true);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("\nVänta lite");
@@ -81,8 +90,10 @@ namespace ReactionGame
             return !lowerFound;
         }
 
-        static void RegisterNewHighscore(long time)
+        static async void RegisterNewHighscore(long time)
         {
+            var httpClient = new HttpClient();
+
             Console.Write("Nytt rekord!");
             Console.Write("\nSkriv ditt namn: ");
 
@@ -92,7 +103,37 @@ namespace ReactionGame
                 Time = time
             };
 
-            highscores.Add(highscore);
+            var response = await httpClient.PostAsJsonAsync("http://localhost:5175/api/Highscores", highscore);
+        }
+
+        public static async Task<List<Highscore>> GetTop10()
+        {
+            HttpClient httpClient = new HttpClient();
+
+             var scores = await httpClient.GetFromJsonAsync<List<Highscore>>("http://localhost:5175/api/Highscores/top10");
+                foreach (var item in scores)
+                {
+                    Console.WriteLine("ID: " + item.Id);
+                    Console.WriteLine("Name:" + item.Name);
+                    Console.WriteLine("Time: " + item.Time);
+                    Console.WriteLine("");
+                }
+                return scores;
+        }
+
+        public static async Task<List<Highscore>> GetAllHighscores()
+        {
+            HttpClient httpClient = new HttpClient();
+
+            var scores = await httpClient.GetFromJsonAsync<List<Highscore>>("http://localhost:5175/api/Highscores");
+                foreach (var item in scores)
+                {
+                    Console.WriteLine("ID: " + item.Id);
+                    Console.WriteLine("Name:" + item.Name);
+                    Console.WriteLine("Time: " + item.Time);
+                    Console.WriteLine("");
+                }
+                return scores;
         }
     }
 }
