@@ -37,16 +37,16 @@ namespace WebApi.Controllers
             return Json(await _dbContext.Highscores.Take(10).OrderBy(sorting => sorting.Time).ToListAsync());
         }
 
-        //[HttpGet("{id}")]
-        // public async Task<IActionResult> GetHighscoreById(int id)
-        // {
-        //     var highscoreFinder = await _dbContext.Highscores.FirstOrDefaultAsync(score => score.Id == id);
-        //     if (highscoreFinder == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     return Ok(highscoreFinder);
-        // }
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetHighscoreById(int id)
+        {
+            var highscoreFinder = await _dbContext.Highscores.FirstOrDefaultAsync(score => score.Id == id);
+            if (highscoreFinder == null)
+            {
+                return NotFound();
+            }
+            return Json(highscoreFinder);
+        }
 
         [HttpGet("{username}")] // behöver ses över då Uri blir fel i swagger. (dubbla matchpoints med {id})
         public async Task<IActionResult> GetUserByName(string username)
