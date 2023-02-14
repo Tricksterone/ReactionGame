@@ -10,11 +10,9 @@ internal class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        //sätta in dbcontext med context klassen samt lambda och usesqlite/InMemory.
         // builder.Services.AddDbContext<HighscoreAPIDbContext>(options => options.UseInMemoryDatabase("HighscoresDb"));
         builder.Services.AddDbContext<HighscoreAPIDbContext>(options => options.UseSqlite());
 
