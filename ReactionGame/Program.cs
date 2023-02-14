@@ -11,6 +11,7 @@ namespace ReactionGame
     class Program
     {
         public static List<Highscore> highscores = new List<Highscore>();
+        public static HttpClient httpClient = new HttpClient();
 
         static async Task Main(string[] args)
         {
@@ -23,7 +24,7 @@ namespace ReactionGame
 
 
                 Console.WriteLine("Tryck valfri tangent för att starta spelet!");
-                await GetTop10();
+                
                 Console.ReadKey(true);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("\nVänta lite");
@@ -59,7 +60,7 @@ namespace ReactionGame
                     }
 
                     //Console.WriteLine("\n\nHIGHSCORE:");
-                    await GetTop10();
+                    await GetTop10(httpClient);
                 }
 
                 Console.ResetColor();
@@ -99,10 +100,8 @@ namespace ReactionGame
             var response = await httpClient.PostAsJsonAsync("http://localhost:5175/Highscores", highscore);
         }
 
-        static async Task<List<Highscore>> GetTop10()
+        static async Task<List<Highscore>> GetTop10(HttpClient httpClient)
         {
-            HttpClient httpClient = new HttpClient();
-
             var highscores = await httpClient.GetFromJsonAsync<List<Highscore>>("http://localhost:5175/Highscores/top10");
             Console.WriteLine("\n\nHIGHSCORE:");
 
@@ -113,10 +112,8 @@ namespace ReactionGame
             return highscores;
         }
 
-        static async Task<List<Highscore>> GetAllHighscores()
+        static async Task<List<Highscore>> GetAllHighscores(HttpClient httpClient)
         {
-            HttpClient httpClient = new HttpClient();
-
             var highscores = await httpClient.GetFromJsonAsync<List<Highscore>>("http://localhost:5175/Highscores");
             Console.WriteLine("\n\nHIGHSCORE:");
 
