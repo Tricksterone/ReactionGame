@@ -56,7 +56,7 @@ Flödet kan beskrivas så här:
 | ------------ | ----------- | ---- | --------|---
 | GET| /highscores/{id} | Hämta highscore med ett visst ID |Ingen | Ett highscore
 | GET| /highscores/{username} | Hämta alla highscores för ett visst användarnamn |Ingen | En lista med highscore
-| DELETE| /highscores|Ta bort alla highscores| Ingen| Ingen
+|DELETE|  /highscores|Ta bort alla highscores| Ingen| Ingen
 
 ------
 
