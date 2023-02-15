@@ -56,11 +56,11 @@ namespace ReactionGame
 
                     if (IsNewHighscore(stopwatch.ElapsedMilliseconds))
                     {
-                        RegisterNewHighscore(stopwatch.ElapsedMilliseconds);
+                       await RegisterNewHighscore(stopwatch.ElapsedMilliseconds, httpClient);
                     }
 
-                    await GetTop10(httpClient);
                 }
+                await GetTop10(httpClient);
 
                 Console.ResetColor();
                 Console.WriteLine("\nTryck på valfri tangent för att börja om, eller Q för att avsluta.");
@@ -83,10 +83,8 @@ namespace ReactionGame
             return !lowerFound;
         }
 
-        static async void RegisterNewHighscore(long time)
+        static async Task RegisterNewHighscore(long time, HttpClient httpClient)
         {
-            var httpClient = new HttpClient();
-
             Console.Write("Nytt rekord!");
             Console.Write("\nSkriv ditt namn: ");
 
