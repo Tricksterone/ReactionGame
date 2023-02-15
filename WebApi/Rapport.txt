@@ -1,0 +1,28 @@
+Till en början tyckte jag att uppgiften var svår och knepig
+då jag hade missat lite med övningarna på Todo Api i klassen
+men efter att ha spenderat helgen och gjort ett par apier via youtube tutorials
+fick jag större förståelse för uppgiften.
+därefter flöt det på bra och jag fick testa att göra min controller från grunden upp istället för scaffolding
+samt testa olika sätt att hämta ut datan.
+tyckte det var väldigt roligt att testa olika saker i controllern och se hur jag både lägger in datan samt hämtar den
+även med att göra olika return response codes och endpoints där jag stötte på problemet med 2 matchade endpoints
+och fick klura fram hur man separerar dessa i controllern.
+
+tycker uppgiften har varit väldigt givande och gett mitt bättre förståelse för apier samt client till ett api.
+
+
+ENDPOINTS #
+| Metod | Endpoint | Beskrivning | Req. Body | Response body
+| ------------ | ----------- | ---- | --------|---
+GET 
+/Highscores - Hämtar ut alla highscores | Ingen | Lista med highscores
+/Highscores/top10 - hämtar ut 10 highscores med lägst tid i ascending order | Ingen | Lista med top 10 highscores
+/Highscores/{id} - hämtar ett highscore med specifikt id | Ingen | ett highscore
+/Highscores/{username} - hämtar ett highscore med angivet (input) namn | Ingen | ett highscore
+
+POST
+/Highscores - lägger till nytt highscore | Ett highscore | Nya highscoret som skapats
+
+DELETE
+/Highscores - tar bort alla highscores | Ingen | 204 NoContent 
+/Highscores/{id} - tar bort ett highscore med specifikt id | Ingen | 200 med highscoret som tagits bort

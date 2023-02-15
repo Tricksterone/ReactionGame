@@ -72,19 +72,18 @@ namespace WebApi.Controllers
             return Ok(score);
         }
 
-        [HttpDelete]
-        [Route("{id}")]//får den bara att fungera med hjälp av ett id.
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHighscoreById(int id)
         {
             var _highscore = await _dbContext.Highscores.FirstOrDefaultAsync(score => score.Id == id);
             if (_highscore == null)
             {
-                return NotFound($"Highscore with Id = {id} not found");
+                return NotFound();
             }
 
             _dbContext.Highscores.RemoveRange(_highscore);
             await _dbContext.SaveChangesAsync();
-            return Ok($"Highscore with Id: {id} deleted.");
+            return Ok(_highscore);
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteAllHighscores()
