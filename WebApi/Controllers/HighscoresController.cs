@@ -1,7 +1,6 @@
 using WebApi.Data;
 using WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Controllers
@@ -45,7 +44,7 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            return Json(highscoreFinder);
+            return Ok(highscoreFinder);
         }
 
         [HttpGet("{username}")] // behöver ses över då Uri blir fel i swagger. (dubbla matchpoints med {id})
@@ -56,7 +55,7 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            return Json(userFinder);
+            return Ok(userFinder);
         }
 
         [HttpPost]
@@ -70,7 +69,7 @@ namespace WebApi.Controllers
             };
             await _dbContext.Highscores.AddAsync(score);
             await _dbContext.SaveChangesAsync();
-            return Json(score);
+            return Ok(score);
         }
 
         [HttpDelete]
