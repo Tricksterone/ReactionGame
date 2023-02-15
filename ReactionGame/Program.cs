@@ -24,7 +24,7 @@ namespace ReactionGame
 
 
                 Console.WriteLine("Tryck valfri tangent för att starta spelet!");
-                
+
                 Console.ReadKey(true);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("\nVänta lite");
@@ -59,7 +59,6 @@ namespace ReactionGame
                         RegisterNewHighscore(stopwatch.ElapsedMilliseconds);
                     }
 
-                    //Console.WriteLine("\n\nHIGHSCORE:");
                     await GetTop10(httpClient);
                 }
 
